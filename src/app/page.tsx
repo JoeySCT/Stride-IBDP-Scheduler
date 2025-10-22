@@ -529,9 +529,21 @@ export default function Home() {
         {/* Table Section */}
         <div className="glass-effect rounded-2xl p-10">
           <h2 className="text-3xl font-light mb-8 text-center text-foreground tracking-wide">Assignment Deadlines</h2>
+          {selectedSubjects.length > 0 && (
+            <div className="mb-6 text-center">
+              <p className="text-sm text-foreground/70">
+                Showing assignments for: <span className="font-medium text-foreground">{selectedSubjects.join(', ')}</span>
+              </p>
+            </div>
+          )}
           <div className="overflow-hidden rounded-xl border border-white/20 backdrop-blur-sm">
             <Table>
-              <TableCaption className="text-muted-foreground/80">A list of looming deadlines.</TableCaption>
+              <TableCaption className="text-muted-foreground/80">
+                {selectedSubjects.length === 0 
+                  ? "A list of looming deadlines." 
+                  : `Showing ${displayAssignments.length} assignment(s) for selected subjects.`
+                }
+              </TableCaption>
               <TableHeader>
                 <TableRow className="border-white/10">
                   <TableHead className="w-[200px] font-medium">Class</TableHead>
@@ -541,14 +553,25 @@ export default function Home() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {displayAssignments.map((assignment, index) => (
-                  <TableRow key={index} className="border-white/10 hover:bg-white/5 transition-colors">
-                    <TableCell className="font-medium">{assignment.class}</TableCell>
-                    <TableCell>{assignment.assignment}</TableCell>
-                    <TableCell>{assignment.date}</TableCell>
-                    <TableCell><PriorityCombobox /></TableCell>
+                {displayAssignments.length > 0 ? (
+                  displayAssignments.map((assignment, index) => (
+                    <TableRow key={index} className="border-white/10 hover:bg-white/5 transition-colors">
+                      <TableCell className="font-medium">{assignment.class}</TableCell>
+                      <TableCell>{assignment.assignment}</TableCell>
+                      <TableCell>{assignment.date}</TableCell>
+                      <TableCell><PriorityCombobox /></TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow className="border-white/10">
+                    <TableCell colSpan={4} className="text-center py-8 text-foreground/60">
+                      {selectedSubjects.length > 0 
+                        ? `No assignments found for the selected subjects: ${selectedSubjects.join(', ')}`
+                        : 'No assignments available'
+                      }
+                    </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>
