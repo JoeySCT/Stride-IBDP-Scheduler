@@ -75,6 +75,7 @@ src/
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 
-## Deploy on Vercel
+## Stride is also deployed using Vercel and can be accessed here:
+
 
 
