@@ -1,4 +1,4 @@
-This is a project developed with Next.js, an open-source React based framework.
+This is Stride, a project developed with Next.js, an open-source React-based framework.
 
 ## Welcome to Stride
 
@@ -46,7 +46,7 @@ src/
 ├── app/                 # Next.js app directory
 │   ├── globals.css     # Global styles
 │   ├── layout.tsx      # Root layout component
-│   └── page.tsx        # Home page
+│   └── page.tsx        # Home page ~ Mainly the Computational Thinking can be found here.
 ├── components/         # Reusable React components
 │   ├── ui/             # UI components (buttons, dialogs, etc.)
 │   ├── Header/         # Header component
@@ -61,21 +61,11 @@ src/
 - `npm run start` - Starts the production server
 - `npm run lint` - Runs ESLint to check for code quality issues
 
-## Technologies Used
 
-- **Next.js 15.5.4** - React framework with App Router
-- **React 19.1.0** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Utility-first CSS framework
-- **Radix UI** - Accessible component primitives
-- **Lucide React** - Beautiful icons
-- **next-themes** - Theme management
-- **XLSX** - Excel file processing
+## Stride is also deployed using Vercel and can be accessed here if you want to try it out before running it locally.:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[`next/font`](https://stride-alpha.vercel.app/)
 
-
-## Stride is also deployed using Vercel and can be accessed here:
 
 
 
