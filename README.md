@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a project developed with Next.js, an open-source React based framework.
 
-## Getting Started
+## Welcome to Stride
 
-First, run the development server:
+A modern scheduling application built with Next.js, React, and Tailwind CSS.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your computer:
+
+- **Node.js** (version 18.0 or higher) - [Download from nodejs.org](https://nodejs.org/)
+- **npm** (comes with Node.js)
+- **Git** (for cloning the repository) - [Download from git-scm.com](https://git-scm.com/)
+
+## Getting Started Locally
+
+### 1. Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd ib-scheduler-list
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+npm install
+
+### 3. Run the Development Server
+
+```bash
+# Using npm
+npm run dev
+
+```
+
+### 4. Open Your Browser
+
+Open [http://localhost:3000] with your browser to see the result.
+
+The page will automatically reload when you make changes to the code. You can start editing the page by modifying `src/app/page.tsx`.
+
+## Project Structure
+
+```
+src/
+├── app/                 # Next.js app directory
+│   ├── globals.css     # Global styles
+│   ├── layout.tsx      # Root layout component
+│   └── page.tsx        # Home page
+├── components/         # Reusable React components
+│   ├── ui/             # UI components (buttons, dialogs, etc.)
+│   ├── Header/         # Header component
+│   └── Welcome/        # Welcome component
+└── lib/                # Utility functions
+```
+
+## Available Scripts
+
+- `npm run dev` - Starts the development server with Turbopack
+- `npm run build` - Builds the application for production
+- `npm run start` - Starts the production server
+- `npm run lint` - Runs ESLint to check for code quality issues
+
+## Technologies Used
+
+- **Next.js 15.5.4** - React framework with App Router
+- **React 19.1.0** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS framework
+- **Radix UI** - Accessible component primitives
+- **Lucide React** - Beautiful icons
+- **next-themes** - Theme management
+- **XLSX** - Excel file processing
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
