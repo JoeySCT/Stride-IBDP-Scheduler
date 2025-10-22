@@ -43,70 +43,19 @@ interface Assignment {
  */
 export default function Home() {
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
-  const [uploadedData, setUploadedData] = useState<any[]>([]);
+  // const [uploadedData, setUploadedData] = useState<unknown[]>([]);
   const [uploadError, setUploadError] = useState<string>('');
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const MAX_SELECTIONS = 6;
 
-  // Placeholder assignments when no Excel file is uploaded
-  const placeholderAssignments: Assignment[] = [
-    {
-      class: "Mathematics Analysis and Approaches",
-      assignment: "IA: Statistical Analysis of Climate Data",
-      date: "March 15, 2024",
-      priority: "High"
-    },
-    {
-      class: "Physics",
-      assignment: "Lab Report: Pendulum Investigation",
-      date: "February 28, 2024",
-      priority: "Medium"
-    },
-    {
-      class: "English A: Language & Literature",
-      assignment: "Individual Oral: Global Issues Analysis",
-      date: "April 5, 2024",
-      priority: "High"
-    },
-    {
-      class: "History",
-      assignment: "IA: Causes of World War I",
-      date: "March 22, 2024",
-      priority: "Medium"
-    },
-    {
-      class: "Computer Science",
-      assignment: "IA: Student Management System",
-      date: "April 12, 2024",
-      priority: "High"
-    },
-    {
-      class: "Chemistry",
-      assignment: "Lab Report: Organic Synthesis",
-      date: "March 8, 2024",
-      priority: "Low"
-    },
-    {
-      class: "Economics",
-      assignment: "IA: Market Analysis of Renewable Energy",
-      date: "April 18, 2024",
-      priority: "Medium"
-    },
-    {
-      class: "French B",
-      assignment: "Written Assignment: Cultural Comparison",
-      date: "March 29, 2024",
-      priority: "Low"
-    }
-  ];
 
   // Function to parse Excel data and extract assignments
-  const parseExcelData = (data: any[]): Assignment[] => {
+  const parseExcelData = (data: unknown[]): Assignment[] => {
     if (!data || data.length === 0) return [];
 
     // Find header row (first non-empty row)
-    const headerRowIndex = data.findIndex((row: any) => 
-      Array.isArray(row) && row.some((cell: any) => 
+    const headerRowIndex = data.findIndex((row: unknown) => 
+      Array.isArray(row) && row.some((cell: unknown) => 
         cell && typeof cell === 'string' && cell.toLowerCase().includes('class')
       )
     );
@@ -115,17 +64,17 @@ export default function Home() {
       throw new Error('Could not find header row with "class" column in Excel file');
     }
 
-    const headers = data[headerRowIndex];
+    const headers = data[headerRowIndex] as unknown[];
     const dataRows = data.slice(headerRowIndex + 1);
 
     // Find column indices
-    const classIndex = headers.findIndex((header: any) => 
+    const classIndex = headers.findIndex((header: unknown) => 
       header && typeof header === 'string' && header.toLowerCase().includes('class')
     );
-    const assignmentIndex = headers.findIndex((header: any) => 
+    const assignmentIndex = headers.findIndex((header: unknown) => 
       header && typeof header === 'string' && header.toLowerCase().includes('assignment')
     );
-    const dateIndex = headers.findIndex((header: any) => 
+    const dateIndex = headers.findIndex((header: unknown) => 
       header && typeof header === 'string' && 
       (header.toLowerCase().includes('date') || header.toLowerCase().includes('due'))
     );
@@ -137,7 +86,7 @@ export default function Home() {
     // Parse data rows
     const parsedAssignments: Assignment[] = [];
     
-    dataRows.forEach((row: any, index: number) => {
+    dataRows.forEach((row: unknown) => {
       if (!Array.isArray(row)) return;
       
       const classValue = row[classIndex];
@@ -178,6 +127,58 @@ export default function Home() {
 
   // Get assignments to display (from Excel or placeholder) and filter by selected subjects
   const displayAssignments = useMemo(() => {
+    // Placeholder assignments when no Excel file is uploaded
+    const placeholderAssignments: Assignment[] = [
+      {
+        class: "Mathematics Analysis and Approaches",
+        assignment: "IA: Statistical Analysis of Climate Data",
+        date: "March 15, 2024",
+        priority: "High"
+      },
+      {
+        class: "Physics",
+        assignment: "Lab Report: Pendulum Investigation",
+        date: "February 28, 2024",
+        priority: "Medium"
+      },
+      {
+        class: "English A: Language & Literature",
+        assignment: "Individual Oral: Global Issues Analysis",
+        date: "April 5, 2024",
+        priority: "High"
+      },
+      {
+        class: "History",
+        assignment: "IA: Causes of World War I",
+        date: "March 22, 2024",
+        priority: "Medium"
+      },
+      {
+        class: "Computer Science",
+        assignment: "IA: Student Management System",
+        date: "April 12, 2024",
+        priority: "High"
+      },
+      {
+        class: "Chemistry",
+        assignment: "Lab Report: Organic Synthesis",
+        date: "March 8, 2024",
+        priority: "Low"
+      },
+      {
+        class: "Economics",
+        assignment: "IA: Market Analysis of Renewable Energy",
+        date: "April 18, 2024",
+        priority: "Medium"
+      },
+      {
+        class: "French B",
+        assignment: "Written Assignment: Cultural Comparison",
+        date: "March 29, 2024",
+        priority: "Low"
+      }
+    ];
+    
     const sourceAssignments = assignments.length > 0 ? assignments : placeholderAssignments;
     
     // If no subjects are selected, show all assignments
@@ -239,11 +240,11 @@ export default function Home() {
     });
   };
 
-  const handleFileProcessed = (data: any[]) => {
+  const handleFileProcessed = (data: unknown[]) => {
     try {
       const parsedAssignments = parseExcelData(data);
       setAssignments(parsedAssignments);
-      setUploadedData(data);
+      // setUploadedData(data);
       setUploadError('');
       console.log('Excel data processed:', parsedAssignments);
     } catch (error) {
@@ -254,7 +255,7 @@ export default function Home() {
 
   const handleUploadError = (error: string) => {
     setUploadError(error);
-    setUploadedData([]);
+    // setUploadedData([]);
     setAssignments([]); // Clear assignments on error
   };
 
@@ -509,7 +510,7 @@ export default function Home() {
 
         {/* Upload Section */}
         <div className="flex flex-col items-center mb-12">
-          <p className="text-center text-foreground/70 mb-4 text-sm">Upload your school schedule or import from your school's system</p>
+          <p className="text-center text-foreground/70 mb-4 text-sm">Upload your school schedule or import from your school&apos;s system</p>
           <FileUpload 
             onFileProcessed={handleFileProcessed}
             onError={handleUploadError}

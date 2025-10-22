@@ -9,7 +9,7 @@ import * as XLSX from 'xlsx';
  * FileUploadProps interface defines the props for the FileUpload component
  */
 interface FileUploadProps {
-  onFileProcessed: (data: any[]) => void;
+  onFileProcessed: (data: unknown[]) => void;
   onError: (error: string) => void;
 }
 
@@ -72,8 +72,8 @@ export default function FileUpload({ onFileProcessed, onError }: FileUploadProps
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       
       // Filter out empty rows
-      const filteredData = jsonData.filter((row: any) => 
-        Array.isArray(row) && row.some((cell: any) => cell !== undefined && cell !== '')
+      const filteredData = jsonData.filter((row: unknown) => 
+        Array.isArray(row) && row.some((cell: unknown) => cell !== undefined && cell !== '')
       );
 
       if (filteredData.length === 0) {
