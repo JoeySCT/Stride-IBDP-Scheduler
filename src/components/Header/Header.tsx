@@ -19,7 +19,7 @@ interface HeaderProps {
  * 
  * @param title - Optional title text (defaults to "Welcome to React - IB Scheduler List")
  */
-export default function Header({ title = "Stride" }: HeaderProps) {
+export default function Header({ title = "Stride 1.0.0" }: HeaderProps) {
   return (
     <header className="glass-effect border-b shadow-sm">
       <div className="container mx-auto px-6 py-8">
