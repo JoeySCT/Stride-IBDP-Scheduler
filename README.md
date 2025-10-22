@@ -64,7 +64,7 @@ src/
 
 ## Stride is also deployed using Vercel and can be accessed here if you want to try it out before running it locally.:
 
-[`next/font`](https://stride-alpha.vercel.app/)
+[`https://stride-alpha.vercel.app/`]
 
 
 
