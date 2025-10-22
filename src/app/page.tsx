@@ -66,12 +66,12 @@ export default function Home() {
     <div className="min-h-screen">
       <Header />
       <div className="mb-8"> <Welcome /> </div>
-      <div className="container mx-auto px-6 max-w-6xl">
+      <div className="container mx-auto px-6 max-w-7xl">
         {/* Subject Selection Section */}
-        <div className="glass-effect rounded-2xl p-8 mb-12">
+        <div className="glass-effect rounded-2xl p-10 mb-12">
           <h2 className="text-3xl font-light mb-4 text-center text-foreground tracking-wide">Select Your Subjects</h2>
           <p className="text-center text-foreground/70 mb-8 text-sm">Choose your IB subjects to customize your schedule and assignment tracking</p>
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <span className="text-sm text-foreground/60">
               Selected: {selectedSubjects.length}/{MAX_SELECTIONS} subjects
             </span>
@@ -80,10 +80,10 @@ export default function Home() {
             {/* Mathematics & Sciences */}
             <div>
               <h3 className="text-lg font-medium mb-4 text-center text-foreground/80">Mathematics & Sciences</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3 max-w-6xl mx-auto">
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Math AA') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -95,7 +95,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Math AI') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -107,7 +107,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Physics') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -119,7 +119,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Chemistry') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -131,7 +131,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Biology') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -147,10 +147,10 @@ export default function Home() {
             {/* Languages & Literature */}
             <div>
               <h3 className="text-lg font-medium mb-4 text-center text-foreground/80">Languages & Literature</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3 max-w-6xl mx-auto">
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Language & Literature') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -162,7 +162,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Lengua & Literatura') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -174,7 +174,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('French') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -190,10 +190,10 @@ export default function Home() {
             {/* Social Sciences */}
             <div>
               <h3 className="text-lg font-medium mb-4 text-center text-foreground/80">Social Sciences</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3 max-w-6xl mx-auto">
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('History') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -205,7 +205,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Psychology') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -217,7 +217,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Business') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -229,7 +229,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Economics') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -245,10 +245,10 @@ export default function Home() {
             {/* Arts & Technology */}
             <div>
               <h3 className="text-lg font-medium mb-4 text-center text-foreground/80">Arts & Technology</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3 max-w-6xl mx-auto">
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Computer Science') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -260,7 +260,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Design Technology') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -272,7 +272,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Music') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -284,7 +284,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Art') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -296,7 +296,7 @@ export default function Home() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className={`glass-button hover:scale-105 transition-all duration-300 ${
+                  className={`glass-button hover:scale-105 transition-all duration-300 text-xs px-3 py-2 h-auto min-h-[40px] whitespace-normal text-center leading-tight ${
                     selectedSubjects.includes('Film') 
                       ? 'bg-primary/20 border-primary text-foreground dark:bg-blue-400/20 dark:border-blue-300 dark:text-blue-200' 
                       : ''
@@ -331,17 +331,18 @@ export default function Home() {
         </div>
 
         {/* Table Section */}
-        <div className="glass-effect rounded-2xl p-8">
+        <div className="glass-effect rounded-2xl p-10">
           <h2 className="text-3xl font-light mb-8 text-center text-foreground tracking-wide">Assignment Deadlines</h2>
           <div className="overflow-hidden rounded-xl border border-white/20 backdrop-blur-sm">
             <Table>
               <TableCaption className="text-muted-foreground/80">A list of looming deadlines.</TableCaption>
               <TableHeader>
                 <TableRow className="border-white/10">
-                  <TableHead className="w-[140px] font-medium">Class</TableHead>
-                  <TableHead className="font-medium">Course Level</TableHead>
+                  <TableHead className="w-[200px] font-medium">Class</TableHead>
+                  <TableHead className="w-[120px] font-medium">Course Level</TableHead>
                   <TableHead className="font-medium">Assignment</TableHead>
-                  <TableHead className="text-right font-medium">Priority</TableHead>
+                  <TableHead className="w-[140px] font-medium">Due Date</TableHead>
+                  <TableHead className="w-[120px] text-right font-medium">Priority</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -349,48 +350,56 @@ export default function Home() {
                   <TableCell className="font-medium">Mathematics Analysis and Approaches</TableCell>
                   <TableCell>Higher Level</TableCell>
                   <TableCell>IA: Statistical Analysis of Climate Data</TableCell>
+                  <TableCell>March 15, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">Physics</TableCell>
                   <TableCell>Standard Level</TableCell>
                   <TableCell>Lab Report: Pendulum Investigation</TableCell>
+                  <TableCell>February 28, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">English A: Language & Literature</TableCell>
                   <TableCell>Higher Level</TableCell>
                   <TableCell>Individual Oral: Global Issues Analysis</TableCell>
+                  <TableCell>April 5, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">History</TableCell>
                   <TableCell>Higher Level</TableCell>
                   <TableCell>IA: Causes of World War I</TableCell>
+                  <TableCell>March 22, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">Computer Science</TableCell>
                   <TableCell>Standard Level</TableCell>
                   <TableCell>IA: Student Management System</TableCell>
+                  <TableCell>April 12, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">Chemistry</TableCell>
                   <TableCell>Higher Level</TableCell>
                   <TableCell>Lab Report: Organic Synthesis</TableCell>
+                  <TableCell>March 8, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">Economics</TableCell>
                   <TableCell>Standard Level</TableCell>
                   <TableCell>IA: Market Analysis of Renewable Energy</TableCell>
+                  <TableCell>April 18, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
                 <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
                   <TableCell className="font-medium">French B</TableCell>
                   <TableCell>Higher Level</TableCell>
                   <TableCell>Written Assignment: Cultural Comparison</TableCell>
+                  <TableCell>March 29, 2024</TableCell>
                   <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
                 </TableRow>
               </TableBody>
