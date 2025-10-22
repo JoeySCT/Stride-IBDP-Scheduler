@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from '@/components/Header';
 import Welcome from '@/components/Welcome';
 import FileUpload from '@/components/FileUpload';
@@ -15,6 +15,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PriorityCombobox } from "@/components/ui/combobox";
+
+/**
+ * Assignment interface for parsed Excel data
+ */
+interface Assignment {
+  class: string;
+  assignment: string;
+  date: string;
+  priority?: string;
+}
 
 /**
  * Main Home Component - IB Scheduler List Application
@@ -35,7 +45,185 @@ export default function Home() {
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [uploadedData, setUploadedData] = useState<any[]>([]);
   const [uploadError, setUploadError] = useState<string>('');
+  const [assignments, setAssignments] = useState<Assignment[]>([]);
   const MAX_SELECTIONS = 6;
+
+  // Placeholder assignments when no Excel file is uploaded
+  const placeholderAssignments: Assignment[] = [
+    {
+      class: "Mathematics Analysis and Approaches",
+      assignment: "IA: Statistical Analysis of Climate Data",
+      date: "March 15, 2024",
+      priority: "High"
+    },
+    {
+      class: "Physics",
+      assignment: "Lab Report: Pendulum Investigation",
+      date: "February 28, 2024",
+      priority: "Medium"
+    },
+    {
+      class: "English A: Language & Literature",
+      assignment: "Individual Oral: Global Issues Analysis",
+      date: "April 5, 2024",
+      priority: "High"
+    },
+    {
+      class: "History",
+      assignment: "IA: Causes of World War I",
+      date: "March 22, 2024",
+      priority: "Medium"
+    },
+    {
+      class: "Computer Science",
+      assignment: "IA: Student Management System",
+      date: "April 12, 2024",
+      priority: "High"
+    },
+    {
+      class: "Chemistry",
+      assignment: "Lab Report: Organic Synthesis",
+      date: "March 8, 2024",
+      priority: "Low"
+    },
+    {
+      class: "Economics",
+      assignment: "IA: Market Analysis of Renewable Energy",
+      date: "April 18, 2024",
+      priority: "Medium"
+    },
+    {
+      class: "French B",
+      assignment: "Written Assignment: Cultural Comparison",
+      date: "March 29, 2024",
+      priority: "Low"
+    }
+  ];
+
+  // Function to parse Excel data and extract assignments
+  const parseExcelData = (data: any[]): Assignment[] => {
+    if (!data || data.length === 0) return [];
+
+    // Find header row (first non-empty row)
+    const headerRowIndex = data.findIndex((row: any) => 
+      Array.isArray(row) && row.some((cell: any) => 
+        cell && typeof cell === 'string' && cell.toLowerCase().includes('class')
+      )
+    );
+
+    if (headerRowIndex === -1) {
+      throw new Error('Could not find header row with "class" column in Excel file');
+    }
+
+    const headers = data[headerRowIndex];
+    const dataRows = data.slice(headerRowIndex + 1);
+
+    // Find column indices
+    const classIndex = headers.findIndex((header: any) => 
+      header && typeof header === 'string' && header.toLowerCase().includes('class')
+    );
+    const assignmentIndex = headers.findIndex((header: any) => 
+      header && typeof header === 'string' && header.toLowerCase().includes('assignment')
+    );
+    const dateIndex = headers.findIndex((header: any) => 
+      header && typeof header === 'string' && 
+      (header.toLowerCase().includes('date') || header.toLowerCase().includes('due'))
+    );
+
+    if (classIndex === -1 || assignmentIndex === -1 || dateIndex === -1) {
+      throw new Error('Excel file must contain columns: class, assignment, and date');
+    }
+
+    // Parse data rows
+    const parsedAssignments: Assignment[] = [];
+    
+    dataRows.forEach((row: any, index: number) => {
+      if (!Array.isArray(row)) return;
+      
+      const classValue = row[classIndex];
+      const assignmentValue = row[assignmentIndex];
+      const dateValue = row[dateIndex];
+
+      // Skip empty rows
+      if (!classValue || !assignmentValue || !dateValue) return;
+
+      // Format date
+      let formattedDate = dateValue.toString();
+      if (dateValue instanceof Date) {
+        formattedDate = dateValue.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } else if (typeof dateValue === 'number') {
+        // Handle Excel date serial numbers
+        const excelDate = new Date((dateValue - 25569) * 86400 * 1000);
+        formattedDate = excelDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+
+      parsedAssignments.push({
+        class: classValue.toString(),
+        assignment: assignmentValue.toString(),
+        date: formattedDate,
+        priority: 'Medium' // Default priority
+      });
+    });
+
+    return parsedAssignments;
+  };
+
+  // Get assignments to display (from Excel or placeholder) and filter by selected subjects
+  const displayAssignments = useMemo(() => {
+    const sourceAssignments = assignments.length > 0 ? assignments : placeholderAssignments;
+    
+    // If no subjects are selected, show all assignments
+    if (selectedSubjects.length === 0) {
+      return sourceAssignments;
+    }
+    
+    // Filter assignments based on selected subjects
+    return sourceAssignments.filter(assignment => {
+      // Check if the assignment's class matches any of the selected subjects
+      return selectedSubjects.some(subject => {
+        // Handle various ways the class name might match the subject
+        const classLower = assignment.class.toLowerCase();
+        const subjectLower = subject.toLowerCase();
+        
+        // Direct match
+        if (classLower.includes(subjectLower) || subjectLower.includes(classLower)) {
+          return true;
+        }
+        
+        // Handle specific IB subject mappings
+        const subjectMappings: { [key: string]: string[] } = {
+          'Math AA': ['mathematics analysis', 'math aa', 'analysis and approaches'],
+          'Math AI': ['mathematics applications', 'math ai', 'applications and interpretation'],
+          'Physics': ['physics'],
+          'Chemistry': ['chemistry'],
+          'Biology': ['biology'],
+          'Language & Literature': ['language and literature', 'english a', 'mla'],
+          'Lengua & Literatura': ['lengua y literatura', 'spanish a'],
+          'French': ['french'],
+          'History': ['history'],
+          'Psychology': ['psychology'],
+          'Business': ['business'],
+          'Economics': ['economics'],
+          'Computer Science': ['computer science', 'cs'],
+          'Design Technology': ['design technology', 'dt'],
+          'Music': ['music'],
+          'Art': ['art', 'visual arts'],
+          'Film': ['film']
+        };
+        
+        const mappedTerms = subjectMappings[subject] || [];
+        return mappedTerms.some(term => classLower.includes(term));
+      });
+    });
+  }, [assignments, selectedSubjects]);
 
   const handleSubjectToggle = (subject: string) => {
     setSelectedSubjects(prev => {
@@ -52,14 +240,22 @@ export default function Home() {
   };
 
   const handleFileProcessed = (data: any[]) => {
-    setUploadedData(data);
-    setUploadError('');
-    console.log('Excel data processed:', data);
+    try {
+      const parsedAssignments = parseExcelData(data);
+      setAssignments(parsedAssignments);
+      setUploadedData(data);
+      setUploadError('');
+      console.log('Excel data processed:', parsedAssignments);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to parse Excel data';
+      handleUploadError(errorMessage);
+    }
   };
 
   const handleUploadError = (error: string) => {
     setUploadError(error);
     setUploadedData([]);
+    setAssignments([]); // Clear assignments on error
   };
 
   return (
@@ -323,9 +519,9 @@ export default function Home() {
               {uploadError}
             </div>
           )}
-          {uploadedData.length > 0 && (
+          {assignments.length > 0 && (
             <div className="mt-4 p-3 bg-green-500/10 border border-green-500/20 rounded-lg text-green-600 dark:text-green-400 text-sm">
-              Successfully loaded {uploadedData.length} rows from Excel file
+              Successfully loaded {assignments.length} assignments from Excel file
             </div>
           )}
         </div>
@@ -339,69 +535,20 @@ export default function Home() {
               <TableHeader>
                 <TableRow className="border-white/10">
                   <TableHead className="w-[200px] font-medium">Class</TableHead>
-                  <TableHead className="w-[120px] font-medium">Course Level</TableHead>
                   <TableHead className="font-medium">Assignment</TableHead>
                   <TableHead className="w-[140px] font-medium">Due Date</TableHead>
-                  <TableHead className="w-[120px] text-right font-medium">Priority</TableHead>
+                  <TableHead className="w-[120px] font-medium">Priority</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">Mathematics Analysis and Approaches</TableCell>
-                  <TableCell>Higher Level</TableCell>
-                  <TableCell>IA: Statistical Analysis of Climate Data</TableCell>
-                  <TableCell>March 15, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">Physics</TableCell>
-                  <TableCell>Standard Level</TableCell>
-                  <TableCell>Lab Report: Pendulum Investigation</TableCell>
-                  <TableCell>February 28, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">English A: Language & Literature</TableCell>
-                  <TableCell>Higher Level</TableCell>
-                  <TableCell>Individual Oral: Global Issues Analysis</TableCell>
-                  <TableCell>April 5, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">History</TableCell>
-                  <TableCell>Higher Level</TableCell>
-                  <TableCell>IA: Causes of World War I</TableCell>
-                  <TableCell>March 22, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">Computer Science</TableCell>
-                  <TableCell>Standard Level</TableCell>
-                  <TableCell>IA: Student Management System</TableCell>
-                  <TableCell>April 12, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">Chemistry</TableCell>
-                  <TableCell>Higher Level</TableCell>
-                  <TableCell>Lab Report: Organic Synthesis</TableCell>
-                  <TableCell>March 8, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">Economics</TableCell>
-                  <TableCell>Standard Level</TableCell>
-                  <TableCell>IA: Market Analysis of Renewable Energy</TableCell>
-                  <TableCell>April 18, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
-                <TableRow className="border-white/10 hover:bg-white/5 transition-colors">
-                  <TableCell className="font-medium">French B</TableCell>
-                  <TableCell>Higher Level</TableCell>
-                  <TableCell>Written Assignment: Cultural Comparison</TableCell>
-                  <TableCell>March 29, 2024</TableCell>
-                  <TableCell className="text-right"><div className="flex justify-end"><PriorityCombobox /></div></TableCell>
-                </TableRow>
+                {displayAssignments.map((assignment, index) => (
+                  <TableRow key={index} className="border-white/10 hover:bg-white/5 transition-colors">
+                    <TableCell className="font-medium">{assignment.class}</TableCell>
+                    <TableCell>{assignment.assignment}</TableCell>
+                    <TableCell>{assignment.date}</TableCell>
+                    <TableCell><PriorityCombobox /></TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </div>
