@@ -64,8 +64,7 @@ src/
 
 ## Stride is also deployed using Vercel and can be accessed here if you want to try it out before running it locally.:
 
-[`https://stride-alpha.vercel.app/`]
-
+[Try Stride Now!](https://stride-alpha.vercel.app/)
 
 
 
