@@ -62,7 +62,7 @@ src/
 - `npm run lint` - Runs ESLint to check for code quality issues
 
 
-## Stride is also deployed using Vercel and can be accessed here if you want to try it out before running it locally.:
+## Stride is also deployed using Vercel and can be accessed here if you want to try it out before running it locally:
 
 [Try Stride Now!](https://stride-alpha.vercel.app/)
 
